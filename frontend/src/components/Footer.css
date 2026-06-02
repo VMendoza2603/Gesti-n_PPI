@@ -1,0 +1,20 @@
+/* ── FOOTER ───────────────────────────────────────────── */
+.footer { background: var(--c-ink); color: var(--c-bg); padding: var(--sp-16) 0 var(--sp-8); }
+.footer__grid {
+  display: flex;
+  gap: var(--sp-12);
+  padding-bottom: var(--sp-12);
+  border-bottom: 1px solid rgba(245,240,232,0.12);
+  flex-wrap: wrap;
+}
+.footer__brand { flex: 0 0 260px; }
+.footer__logo { font-family: var(--f-display); font-size: var(--fs-2xl); font-weight: 300; letter-spacing: 0.08em; }
+.footer__logo span { font-style: italic; color: var(--c-accent); }
+.footer__brand p { margin-top: var(--sp-3); font-size: var(--fs-sm); color: rgba(245,240,232,0.5); font-weight: 300; max-width: 26ch; line-height: 1.65; }
+.footer__col { flex: 1; }
+.footer__col h4 { font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: var(--sp-5); color: rgba(245,240,232,0.6); }
+.footer__col ul { display: flex; flex-direction: column; gap: var(--sp-3); }
+.footer__col a { font-size: var(--fs-sm); color: rgba(245,240,232,0.7); transition: color var(--trans); }
+.footer__col a:hover { color: var(--c-accent); }
+.footer__bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--sp-8); flex-wrap: wrap; gap: var(--sp-4); }
+.footer__copy { font-size: var(--fs-xs); color: rgba(245,240,232,0.35); letter-spacing: 0.06em; }

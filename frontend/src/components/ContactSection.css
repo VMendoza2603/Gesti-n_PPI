@@ -1,0 +1,13 @@
+/* ── CONTACT INFO ─────────────────────────────────────── */
+.contact { padding: var(--sp-24) 0; }
+.contact__inner {
+  display: flex;
+  gap: var(--sp-16);
+  align-items: flex-start;
+}
+.contact__info { flex: 0 0 380px; }
+.contact__info p { color: var(--c-ink-soft); font-weight: 300; margin-top: var(--sp-4); line-height: 1.75; max-width: 34ch; }
+.contact__details { margin-top: var(--sp-8); display: flex; flex-direction: column; gap: var(--sp-3); }
+.contact__detail { display: flex; align-items: center; gap: var(--sp-3); font-size: var(--fs-sm); color: var(--c-ink-soft); }
+.contact__detail-icon { font-size: var(--fs-lg); }
+.contact__form-wrap { flex: 1; }

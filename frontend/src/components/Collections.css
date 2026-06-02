@@ -1,0 +1,56 @@
+/* ── COLLECTIONS ─────────────────────────────────────── */
+.collections { padding: var(--sp-20) 0; }
+.collections__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--sp-10);
+  gap: var(--sp-6);
+}
+.collections__grid {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: stretch;
+}
+.coll-card {
+  flex: 1;
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  background: var(--c-bg-alt);
+}
+.coll-card--featured { flex: 1.5; }
+.coll-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--trans-slow);
+}
+.coll-card:hover .coll-card__img { transform: scale(1.06); }
+.coll-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,23,20,0.7) 0%, transparent 55%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--sp-6);
+  gap: var(--sp-1);
+}
+.coll-card__label {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+.coll-card__title {
+  font-family: var(--f-display);
+  font-size: var(--fs-2xl);
+  font-weight: 300;
+  color: var(--c-white);
+  line-height: 1.1;
+}
+.coll-card__count { font-size: var(--fs-xs); color: rgba(245,240,232,0.7); }

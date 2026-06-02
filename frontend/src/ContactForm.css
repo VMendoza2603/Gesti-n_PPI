@@ -1,0 +1,58 @@
+/* ── FORM ─────────────────────────────────────────────── */
+.form {
+  background: var(--c-white);
+  border: 1px solid var(--c-border);
+  padding: var(--sp-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+.form__row { display: flex; gap: var(--sp-4); }
+.form__row .field { flex: 1; }
+.field { display: flex; flex-direction: column; gap: var(--sp-2); }
+.field label { font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-ink-soft); }
+.field__req { color: var(--c-accent); }
+.field input,
+.field textarea,
+.field select {
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--sp-3) var(--sp-4);
+  font-family: var(--f-body);
+  font-size: var(--fs-sm);
+  color: var(--c-ink);
+  width: 100%;
+  outline: none;
+  transition: border-color var(--trans), box-shadow var(--trans);
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--c-border); }
+.field input:focus, .field textarea:focus, .field select:focus {
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px var(--c-accent-bg);
+}
+.field--error input, .field--error textarea, .field--error select  { border-color: #e05555; }
+.field--success input, .field--success textarea { border-color: #4caf7d; }
+.field__msg {
+  font-size: var(--fs-xs);
+  color: #e05555;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  min-height: 1.1em;
+}
+.field textarea { resize: vertical; min-height: 96px; }
+.form__submit { width: 100%; justify-content: center; padding: var(--sp-4); font-size: var(--fs-sm); }
+.form__success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-4);
+  padding: var(--sp-16) var(--sp-8);
+}
+.form__success-icon { font-size: 3rem; animation: popIn 0.5s cubic-bezier(.175,.885,.32,1.275) both; }
+.form__success h3 { font-family: var(--f-display); font-size: var(--fs-2xl); font-weight: 400; }
+.form__success p  { font-size: var(--fs-sm); color: var(--c-ink-soft); }

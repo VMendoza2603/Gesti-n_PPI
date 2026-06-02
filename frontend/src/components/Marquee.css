@@ -1,0 +1,21 @@
+/* ── MARQUEE ─────────────────────────────────────────── */
+.marquee-strip {
+  background: var(--c-ink);
+  color: var(--c-bg);
+  padding: var(--sp-4) 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-inner {
+  display: inline-flex;
+  animation: marquee 22s linear infinite;
+}
+.marquee-inner span {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0 var(--sp-8);
+}
+.marquee-inner span.dot { color: var(--c-accent); padding: 0; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }

@@ -1,0 +1,17 @@
+/* ── BANNER ───────────────────────────────────────────── */
+.banner {
+  padding: var(--sp-20) 0;
+  background: var(--c-ink);
+  color: var(--c-bg);
+  text-align: center;
+}
+.banner__inner { display: flex; flex-direction: column; align-items: center; gap: var(--sp-6); }
+.banner__title {
+  font-family: var(--f-display);
+  font-size: clamp(var(--fs-2xl), 5vw, var(--fs-4xl));
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+}
+.banner__title em { font-style: italic; color: var(--c-accent); }

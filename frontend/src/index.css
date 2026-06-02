@@ -1,0 +1,55 @@
+/* variables.css — MAISON design tokens */
+:root {
+  /* ── Palette ─────────────────────────────────── */
+  --c-bg:          #f5f0e8;
+  --c-bg-alt:      #ede8de;
+  --c-ink:         #1a1714;
+  --c-ink-soft:    #5a534a;
+  --c-accent:      #c4714a;       /* terracotta */
+  --c-accent-dark: #a35a35;
+  --c-accent-bg:   #c4714a18;
+  --c-border:      #d4cdc0;
+  --c-white:       #fdfaf5;
+  --c-overlay:     rgba(26,23,20,0.55);
+
+  /* ── Typography ──────────────────────────────── */
+  --f-display: 'Cormorant Garamond', serif;
+  --f-body:    'Jost', sans-serif;
+  --f-label:   'Jost', sans-serif;
+
+  --fs-xs:   0.7rem;
+  --fs-sm:   0.85rem;
+  --fs-base: 1rem;
+  --fs-lg:   1.15rem;
+  --fs-xl:   1.4rem;
+  --fs-2xl:  1.9rem;
+  --fs-3xl:  2.8rem;
+  --fs-4xl:  4rem;
+  --fs-hero: clamp(3.2rem, 8vw, 7rem);
+
+  /* ── Space ───────────────────────────────────── */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-8:  2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+
+  /* ── Layout ──────────────────────────────────── */
+  --max-w:    1200px;
+  --nav-h:    72px;
+  --radius:   4px;
+  --radius-lg:12px;
+
+  /* ── Misc ────────────────────────────────────── */
+  --shadow-card: 0 8px 32px rgba(26,23,20,0.10);
+  --shadow-hover:0 16px 48px rgba(26,23,20,0.18);
+  --trans:       220ms ease;
+  --trans-slow:  400ms ease;
+}
