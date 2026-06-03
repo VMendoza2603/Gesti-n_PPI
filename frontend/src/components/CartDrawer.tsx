@@ -1,7 +1,14 @@
 import './CartDrawer.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import type { CartItem } from '../types'
 import { SHIPPING_THRESHOLD } from '../types'
+
+const PAYMENT_METHODS = [
+  { id: 'card',    label: 'Tarjeta crédito/débito', icon: '💳' },
+  { id: 'apple',   label: 'Apple Pay / Google Pay', icon: '📱' },
+  { id: 'nequi',   label: 'Nequi',                   icon: '📲' },
+  { id: 'paypal',  label: 'PayPal',                  icon: '🅿' },
+]
 
 interface CartDrawerProps {
   items: CartItem[]
@@ -12,6 +19,9 @@ interface CartDrawerProps {
 }
 
 export default function CartDrawer({ items, open, onClose, onQty, onRemove }: CartDrawerProps) {
+  const [checkout, setCheckout] = useState(false)
+  const [selected, setSelected] = useState('')
+  const [paid, setPaid] = useState(false)
   const subtotal  = items.reduce((s, i) => s + i.price * i.qty, 0)
   const shipping  = subtotal >= SHIPPING_THRESHOLD ? 0 : 8.99
   const total     = subtotal + shipping
@@ -27,6 +37,35 @@ export default function CartDrawer({ items, open, onClose, onQty, onRemove }: Ca
     document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [open])
+
+  useEffect(() => {
+    if (!open) { setCheckout(false); setSelected(''); setPaid(false) }
+  }, [open])
+
+  const handlePay = () => {
+    if (!selected) return
+    setPaid(true)
+  }
+
+  if (paid) return (
+    <>
+      <div className={`cart-overlay${open ? ' open' : ''}`} onClick={onClose} aria-hidden="true" />
+      <aside className={`cart-drawer${open ? ' open' : ''}`} aria-label="Confirmación">
+        <div className="cart-drawer__head">
+          <div><h2 className="cart-drawer__title">¡Pedido confirmado!</h2></div>
+          <button className="cart-drawer__close" onClick={onClose}>✕</button>
+        </div>
+        <div className="cart-drawer__body" style={{ alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 'var(--sp-4)' }}>
+          <span style={{ fontSize: '3rem' }}>✅</span>
+          <p style={{ fontSize: 'var(--fs-lg)', color: 'var(--c-ink-soft)' }}>Pago con <strong>{PAYMENT_METHODS.find(m => m.id === selected)?.label}</strong> exitoso.</p>
+          <p style={{ fontSize: 'var(--fs-sm)', color: 'var(--c-ink-soft)' }}>Recibirás un correo con los detalles de tu compra.</p>
+        </div>
+        <div className="cart-drawer__foot">
+          <button className="btn btn-dark cart-checkout" onClick={onClose}>Cerrar</button>
+        </div>
+      </aside>
+    </>
+  )
 
   return (
     <>
@@ -79,7 +118,7 @@ export default function CartDrawer({ items, open, onClose, onQty, onRemove }: Ca
           )}
         </div>
 
-        {items.length > 0 && (
+        {items.length > 0 && !checkout && (
           <div className="cart-drawer__foot">
             <div className="cart-summary">
               <div className="cart-summary__row">
@@ -100,9 +139,40 @@ export default function CartDrawer({ items, open, onClose, onQty, onRemove }: Ca
                 <span>${total.toFixed(2)}</span>
               </div>
             </div>
-            <button className="btn btn-dark cart-checkout">Proceder al pago →</button>
+            <button className="btn btn-dark cart-checkout" onClick={() => setCheckout(true)}>Proceder al pago →</button>
             <button className="btn btn-outline cart-checkout" style={{ padding: 'var(--sp-3)' }} onClick={onClose}>
               Seguir comprando
+            </button>
+          </div>
+        )}
+
+        {items.length > 0 && checkout && (
+          <div className="cart-drawer__foot">
+            <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--c-ink-soft)', marginBottom: 'var(--sp-2)' }}>Selecciona un método de pago</p>
+            <div className="payment-methods">
+              {PAYMENT_METHODS.map(m => (
+                <button
+                  key={m.id}
+                  className={`payment-method${selected === m.id ? ' selected' : ''}`}
+                  onClick={() => setSelected(m.id)}
+                >
+                  <span className="payment-method__icon">{m.icon}</span>
+                  <span className="payment-method__label">{m.label}</span>
+                  {selected === m.id && <span className="payment-method__check">✓</span>}
+                </button>
+              ))}
+            </div>
+            <div className="cart-summary">
+              <div className="cart-summary__row total">
+                <span>Total a pagar</span>
+                <span>${total.toFixed(2)}</span>
+              </div>
+            </div>
+            <button className="btn btn-dark cart-checkout" disabled={!selected} onClick={handlePay}>
+              {selected ? `Pagar $${total.toFixed(2)}` : 'Selecciona un método'}
+            </button>
+            <button className="btn btn-outline cart-checkout" style={{ padding: 'var(--sp-3)' }} onClick={() => setCheckout(false)}>
+              ← Volver al carrito
             </button>
           </div>
         )}
