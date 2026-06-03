@@ -7,5 +7,14 @@
     "interest": "hombre",
     "message": "Busco una pieza especial para poderla lucir en una noche de gala",
     "createdAt": "2026-06-02T21:05:37.597Z"
+  },
+  {
+    "id": 2,
+    "name": "edgar lara",
+    "email": "elaray2@unemi.edu.ec",
+    "phone": "0989462928",
+    "interest": "hombre",
+    "message": "ropa tipo polo, pantalones de levis y una gorra new era",
+    "createdAt": "2026-06-03T06:15:46.677Z"
   }
 ]

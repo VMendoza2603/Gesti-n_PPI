@@ -44,6 +44,17 @@
   min-height: 1.1em;
 }
 .field textarea { resize: vertical; min-height: 96px; }
+.form__error-msg {
+  background-color: #fff5f5;
+  border: 1px solid #e05555;
+  border-radius: var(--radius);
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-xs);
+  color: #e05555;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
 .form__submit { width: 100%; justify-content: center; padding: var(--sp-4); font-size: var(--fs-sm); }
 .form__success {
   display: flex;
