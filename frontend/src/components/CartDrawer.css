@@ -172,3 +172,31 @@
   border-top: 1px solid var(--c-border);
 }
 .cart-checkout { width: 100%; justify-content: center; padding: var(--sp-4); font-size: var(--fs-sm); }
+.cart-checkout:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-white);
+  cursor: pointer;
+  transition: all var(--trans);
+  font-size: var(--fs-sm);
+  position: relative;
+}
+.payment-method:hover { border-color: var(--c-ink); }
+.payment-method.selected { border-color: var(--c-ink); background: var(--c-bg-alt); }
+.payment-method__icon { font-size: 1.25rem; }
+.payment-method__check {
+  margin-left: auto;
+  color: var(--c-ink);
+  font-weight: 700;
+}

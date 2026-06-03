@@ -66,6 +66,7 @@ export default function ContactForm() {
   const [touched,   setTouched]   = useState<Touched>(blankT)
   const [loading,   setLoading]   = useState(false)
   const [sent,      setSent]      = useState(false)
+  const [errorMsg,  setErrorMsg]  = useState<string>('')
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name: k, value: v } = e.target
@@ -88,17 +89,19 @@ export default function ContactForm() {
     const errs = validate(vals)
     setErrors(errs)
     if (Object.keys(errs).length) return
+    setErrorMsg('')
     setLoading(true)
     try {
-      const res = await fetch('/api/contact', {
+      const apiUrl = import.meta.env.VITE_API_URL
+      const res = await fetch(`${apiUrl}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(vals)
       })
       if (!res.ok) throw new Error('Error al enviar')
       setSent(true)
-    } catch {
-      alert('Error al enviar el mensaje. Intenta de nuevo.')
+    } catch (error) {
+      setErrorMsg('Error al enviar el mensaje. Intenta de nuevo.')
     } finally {
       setLoading(false)
     }
@@ -153,6 +156,12 @@ export default function ContactForm() {
           value={vals.message} onChange={onChange} onBlur={onBlur}
           aria-invalid={touched.message && !!errors.message} />
       </Field>
+
+      {errorMsg && (
+        <div className="form__error-msg" role="alert">
+          ⚠ {errorMsg}
+        </div>
+      )}
 
       <button type="submit" className="btn btn-dark form__submit" disabled={loading} aria-busy={loading}>
         {loading ? '⏳ Enviando…' : 'Enviar mensaje →'}
