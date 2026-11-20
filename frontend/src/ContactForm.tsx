@@ -1,6 +1,6 @@
 // ContactForm.tsx
 import './ContactForm.css'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 /* ── Types ─────────────────────────────────────────────── */
 interface Values  { name: string; email: string; phone: string; interest: string; message: string }
@@ -15,7 +15,7 @@ const rules: Record<keyof Values, (v: string) => string | undefined> = {
   name: v => {
     if (!v.trim())               return 'El nombre es obligatorio.'
     if (v.trim().length < NAME_MIN) return `Mínimo ${NAME_MIN} caracteres.`
-    if (!/^[A-Za-zÀ-ÿ\s'\-]+$/.test(v)) return 'Solo letras y espacios.'
+    if (!/^[A-Za-zÀ-ÿ\s'-]+$/.test(v)) return 'Solo letras y espacios.'
   },
   email: v => {
     if (!v.trim()) return 'El correo es obligatorio.'
@@ -24,7 +24,7 @@ const rules: Record<keyof Values, (v: string) => string | undefined> = {
   },
   phone: v => {
     if (!v.trim()) return undefined               // optional
-    if (!/^[\d\s\+\-\(\)]{7,15}$/.test(v)) return 'Teléfono no válido.'
+    if (!/^[\d\s+()-]{7,15}$/.test(v)) return 'Teléfono no válido.'
   },
   interest: v => {
     if (!v) return 'Selecciona una categoría.'
@@ -61,6 +61,7 @@ export default function ContactForm() {
   const blank: Values  = { name: '', email: '', phone: '', interest: '', message: '' }
   const blankT: Touched = { name: false, email: false, phone: false, interest: false, message: false }
 
+  const honeypot = useRef<HTMLInputElement>(null)
   const [vals,      setVals]      = useState<Values>(blank)
   const [errors,    setErrors]    = useState<Errors>({})
   const [touched,   setTouched]   = useState<Touched>(blankT)
@@ -96,11 +97,12 @@ export default function ContactForm() {
       const res = await fetch(`${apiUrl}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(vals)
+        // website es un campo trampa invisible: si llega con valor, el backend lo descarta como spam
+        body: JSON.stringify({ ...vals, website: honeypot.current?.value ?? '' })
       })
       if (!res.ok) throw new Error('Error al enviar')
       setSent(true)
-    } catch (error) {
+    } catch {
       setErrorMsg('Error al enviar el mensaje. Intenta de nuevo.')
     } finally {
       setLoading(false)
@@ -120,6 +122,8 @@ export default function ContactForm() {
 
   return (
     <form className="form" onSubmit={onSubmit} noValidate aria-label="Formulario de contacto">
+      <input ref={honeypot} type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true"
+        style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
       <div className="form__row">
         <Field id="name" label="Nombre completo" required touched={touched.name} error={errors.name}>
           <input id="name" name="name" type="text" placeholder="María González"

@@ -38,9 +38,12 @@ export default function CartDrawer({ items, open, onClose, onQty, onRemove }: Ca
     return () => { document.body.style.overflow = '' }
   }, [open])
 
-  useEffect(() => {
+  // Al cerrar el carrito se reinicia el pago (ajuste durante el render, sin efecto en cascada)
+  const [wasOpen, setWasOpen] = useState(open)
+  if (wasOpen !== open) {
+    setWasOpen(open)
     if (!open) { setCheckout(false); setSelected(''); setPaid(false) }
-  }, [open])
+  }
 
   const handlePay = () => {
     if (!selected) return
@@ -149,6 +152,9 @@ export default function CartDrawer({ items, open, onClose, onQty, onRemove }: Ca
         {items.length > 0 && checkout && (
           <div className="cart-drawer__foot">
             <p style={{ fontSize: 'var(--fs-xs)', color: 'var(--c-ink-soft)', marginBottom: 'var(--sp-2)' }}>Selecciona un método de pago</p>
+            <p role="note" style={{ fontSize: 'var(--fs-xs)', color: 'var(--c-accent)', marginBottom: 'var(--sp-2)' }}>
+              Tienda de demostración: no se realizan cobros reales ni se piden datos de pago.
+            </p>
             <div className="payment-methods">
               {PAYMENT_METHODS.map(m => (
                 <button

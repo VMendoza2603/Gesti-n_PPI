@@ -2,3 +2,6 @@ node_modules/
 dist/
 .env
 *.log
+
+# Datos de contacto (información personal): nunca al repositorio
+backend/data/*.json
